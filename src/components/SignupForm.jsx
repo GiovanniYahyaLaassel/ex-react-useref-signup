@@ -8,7 +8,7 @@ function SignupForm () {
     const [specialization, setSpecialization] = useState("Full Stack");
     const [experience, setExperience] = useState("");
     const [bio, setBio] = useState("");
-
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     // Handler per aggiornare lo stato 
     const handleFullName = (e) => {
@@ -41,10 +41,52 @@ function SignupForm () {
         console.log("Bio:", e.target.value);
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        //Controllo che tutti i campi siano stati compilati 
+        if (
+            !fullName.trim() ||
+            !username.trim() ||
+            !password.trim() ||
+            !specialization.trim() ||
+            !experience.trim() ||
+            !bio.trim() 
+        ) {
+            alert("Compila tutti i campi"); 
+            return;
+        }
+        // Controllo che anni esperienza sia positivo
+        if (isNaN(experience) || Number(experience) <= 0) {
+            alert("Gli anni di esperienza devono essere un numero positivo!");
+            return;
+        }
+        // Controllo che la specializzazione sia valida
+        const validSpecializations = ["Fullstack", "Frontend", "Backend"];
+        if (!validSpecializations.includes(specialization)) {
+            alert("Seleziona una specializzazione valida");
+            return;
+        }
+
+        //  Se tutto è ok, stampo i dati
+        console.log("Dati del form VALIDI:", {
+            fullName,
+            username,
+            password,
+            specialization,
+            experience,
+            bio,
+        });
+
+        setIsSubmitted(true);   
+    }
+
 
 
     return (
-        <form>
+        <>
+
+        <form onSubmit={handleSubmit}>
             <h2>Registrati alla piattaforma</h2>
 
             {/* Campo input controllato */}
@@ -113,8 +155,11 @@ function SignupForm () {
                     placeholder="Scrivi qualcosa su di te..."
                 />
             </div>
+            <button type="submit">Registrati</button>
         </form>
-    );
+        {isSubmitted && <p>Registrazione completata con successo</p>}
+    </>
+    )
 }
 
 export default SignupForm;
