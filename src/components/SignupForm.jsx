@@ -5,6 +5,7 @@ function SignupForm () {
     const [fullName, setFullName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [specialization, setSpecialization] = useState("Full Stack");
 
 
     // Handler per aggiornare lo stato 
@@ -21,6 +22,11 @@ function SignupForm () {
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
         console.log("Password:", e.target.value);
+    };
+
+    const handleSpecializationChange = (e) => {
+        setSpecialization(e.target.value);
+        console.log("Specializzazione:", e.target.value);
     };
 
     return (
@@ -56,6 +62,19 @@ function SignupForm () {
                     value={password}
                     onChange={handlePasswordChange}
                 />
+            </div>
+
+            <div>
+                <label htmlFor="specialization">Specializzazione:</label>
+                <select 
+                    id="specialization"
+                    value={specialization}
+                    onChange={handleSpecializationChange}
+                >
+                    <option value="Full Stack">Full Stack</option>
+                    <option value="Frontend">Frontend</option>
+                    <option value="Backend">Backend</option>
+                </select>
             </div>
 
         </form>
