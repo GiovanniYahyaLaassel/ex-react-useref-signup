@@ -10,6 +10,7 @@ function SignupForm () {
     const [bio, setBio] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isUserNameValid, setIsUserNameValid] = useState(false);
+    const [isPasswordValid, setIsPasswordValid] = useState(false);
 
 
     // Handler per aggiornare lo stato 
@@ -32,8 +33,20 @@ function SignupForm () {
     };    
 
     const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-        console.log("Password:", e.target.value);
+        const value = e.target.value;
+        setPassword(value); 
+        
+        // Regole di validazione 
+        const hasMinLength = value.length >= 8;
+        const hasLetter = /[a-zA-Z]/.test(value);
+        const hasNumber = /[0-9]/.test(value);
+        const hasSymbol = /[^a-zA-Z0-9]/.test(value);
+
+        const isValid = hasMinLength && hasLetter && hasNumber && hasSymbol;
+
+       setIsPasswordValid(isValid);
+
+        console.log("Password Valida?", isValid);
     };
 
     const handleSpecializationChange = (e) => {
@@ -120,7 +133,7 @@ function SignupForm () {
                 />
                 {username && !isUserNameValid &&(
                     <p style={{color: "red"}}>
-                         Lo username deve contenere solo lettere e numeri, almeno 6 caratteri.
+                        Lo username deve contenere solo lettere e numeri, almeno 6 caratteri.
                     </p>
                 )}
             </div>
@@ -133,6 +146,11 @@ function SignupForm () {
                     value={password}
                     onChange={handlePasswordChange}
                 />
+                {password && !isPasswordValid && (
+                    <p style={{color:"red"}}>
+                        La password deve contenere almeno 8 caratteri, una lettera, un numero e un simbolo.
+                    </p>
+                )}
             </div>
 
             <div>
