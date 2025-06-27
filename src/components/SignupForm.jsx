@@ -7,6 +7,7 @@ function SignupForm () {
     const [password, setPassword] = useState("");
     const [specialization, setSpecialization] = useState("Full Stack");
     const [experience, setExperience] = useState("");
+    const [bio, setBio] = useState("");
 
 
     // Handler per aggiornare lo stato 
@@ -34,6 +35,13 @@ function SignupForm () {
         setExperience(e.target.value);
         console.log("Anni di esperienza:", e.target.value);
     };
+
+    const handleBioChange = (e) => {
+        setBio(e.target.value);
+        console.log("Bio:", e.target.value);
+    };
+
+
 
     return (
         <form>
@@ -94,6 +102,17 @@ function SignupForm () {
                 />
             </div>
 
+            <div>
+                <label htmlFor="bio">Breve descrizione:</label>
+                <textarea
+                    id="bio"
+                    value={bio}
+                    onChange={handleBioChange}
+                    rows="4"
+                    cols="40"
+                    placeholder="Scrivi qualcosa su di te..."
+                />
+            </div>
         </form>
     );
 }
