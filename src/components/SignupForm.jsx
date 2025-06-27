@@ -9,6 +9,8 @@ function SignupForm () {
     const [experience, setExperience] = useState("");
     const [bio, setBio] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isUserNameValid, setIsUserNameValid] = useState(false);
+
 
     // Handler per aggiornare lo stato 
     const handleFullName = (e) => {
@@ -17,8 +19,16 @@ function SignupForm () {
     };
 
     const handleUserNameChange = (e) => {
-        setUsername(e.target.value);
-        console.log("Username:", e.target.value);
+        const value =  e.target.value;
+        setUsername(value);
+
+        const isValid = 
+            value.length >= 6 &&
+             /^[a-zA-Z0-9]+$/.test(value);
+
+        setIsUserNameValid(isValid);
+
+        console.log("Username Valido?:", isValid);
     };    
 
     const handlePasswordChange = (e) => {
@@ -108,6 +118,11 @@ function SignupForm () {
                     value={username}
                     onChange={handleUserNameChange}
                 />
+                {username && !isUserNameValid &&(
+                    <p style={{color: "red"}}>
+                         Lo username deve contenere solo lettere e numeri, almeno 6 caratteri.
+                    </p>
+                )}
             </div>
 
             <div>
