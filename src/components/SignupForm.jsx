@@ -3,12 +3,19 @@ import React, {useState} from "react";
 function SignupForm () {
     // Stato per il nome completo
     const [fullName, setFullName] = useState("");
+    const [username, setUsername] = useState("");
 
     // Handler per aggiornare lo stato 
+
     const handleFullName = (e) => {
         setFullName(e.target.value);
         console.log("Nome completo:", e.target.value)
     };
+
+    const handleUserNameChange = (e) => {
+        setUsername(e.target.value);
+        console.log("Username:", e.target.value);
+    };    
 
     return (
         <form>
@@ -22,6 +29,16 @@ function SignupForm () {
                 id="fullName"
                 value={fullName}
                 onChange={handleFullName}
+                />
+            </div>
+
+             <div>
+                <label htmlFor="username">Username:</label>
+                <input 
+                type="text" 
+                id="username"
+                value={username}
+                onChange={handleUserNameChange}
                 />
             </div>
 
